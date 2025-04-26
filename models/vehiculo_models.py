@@ -1,4 +1,4 @@
-from taller_.db import db  # Asegúrate de tener SQLAlchemy correctamente inicializado
+from models.db import db  # Asegúrate de tener SQLAlchemy correctamente inicializado
 from datetime import datetime
 
 class Vehiculo(db.Model):
