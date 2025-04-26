@@ -1,12 +1,13 @@
 from flask import Flask
 from routes.mecanico_routes import Mecanico
+from routes.vehiculos_routes import Vehiculo
 from config.config import DATABASE_CONNECTION_URI
 from models.db import db
 
 app = Flask(__name__)
 
 
-app.register_blueprint(mecanico)
+app.register_blueprint(Mecanico)
 
 
 app.config["SQLALCHEMY_DATABASE_URI"]= DATABASE_CONNECTION_URI
@@ -18,6 +19,8 @@ db.init_app(app)
 
 with app.app_context():
     from models.mecanico_models import Mecanico
+    db.create_all()
+    from models.vehiculo_models import Vehiculo
     db.create_all()
 
 

@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.db import db
-from app.models.vehiculo import Vehiculo
+from models.vehiculo_models import Vehiculo
 
 # Definimos el Blueprint
 vehiculo_bp = Blueprint('vehiculo_bp', __name__)
@@ -19,7 +18,7 @@ def get_vehiculo(id):
 
 # Ruta para crear un nuevo vehículo
 @vehiculo_bp.route('/vehiculos', methods=['POST'])
-def create_vehiculo():
+def crear_vehiculo():
     data = request.get_json()
 
     nuevo_vehiculo = Vehiculo(
@@ -30,14 +29,13 @@ def create_vehiculo():
         patente = data['patente']
     )
 
-    db.session.add(nuevo_vehiculo)
-    db.session.commit()
+   
 
     return jsonify(nuevo_vehiculo.serialize()), 201
 
 # Ruta para actualizar un vehículo existente
 @vehiculo_bp.route('/vehiculos/<int:id>', methods=['PUT'])
-def update_vehiculo(id):
+def actualizar_vehiculo(id):
     vehiculo = Vehiculo.query.get_or_404(id)
     data = request.get_json()
 
@@ -47,7 +45,7 @@ def update_vehiculo(id):
     vehiculo.año = data.get('año', vehiculo.año)
     vehiculo.patente = data.get('patente', vehiculo.patente)
 
-    db.session.commit()
+    
 
     return jsonify(vehiculo.serialize()), 200
 
@@ -56,7 +54,6 @@ def update_vehiculo(id):
 def delete_vehiculo(id):
     vehiculo = Vehiculo.query.get_or_404(id)
 
-    db.session.delete(vehiculo)
-    db.session.commit()
+    
 
     return jsonify({'mensaje': 'Vehículo eliminado correctamente'}), 200
