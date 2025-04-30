@@ -1,5 +1,5 @@
 class Servicio:
-    def __init__(self, id, orden_trabajo_id, descripcion, costo):
+    def __init__(self,id, orden_trabajo_id, descripcion, costo):
         self.id = id
         self.orden_trabajo_id = orden_trabajo_id
         self.descripcion = descripcion
